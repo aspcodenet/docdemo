@@ -1,6 +1,6 @@
 # Labb Dokumentation - Vecka 2
 
-Detta är ett **föresexempel** på hur en klardokumentad labbinlämning kan se ut, skriven i Markdown.
+Detta är ett **exempel** på hur en dokumentad labbinlämning kan se ut, skriven i Markdown.
 
 ## Syfte
 
