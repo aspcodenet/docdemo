@@ -110,3 +110,48 @@ Kör spårning till 8.8.8.8 med max 30 hopp.
 
 Spårning klar.
 ```
+
+---
+
+## Moment 3: Operativsystem, Filsystem & Katalogstruktur
+
+Skapa och strukturera en ny labbkatalog via kommandoraden samt dokumentera systemets egenskaper.
+
+### Steg som utfördes
+
+1. Skapade katalogen `Labb_V2` i hemkatalogen.
+2. Skapade textfilen `system_info.txt` via kommandoraden.
+3. Skrev systemets hostname och OS-version till filen via omdirigering.
+
+**Linux:**
+
+```bash
+mkdir ~/Labb_V2
+touch ~/Labb_V2/system_info.txt
+hostname >> ~/Labb_V2/system_info.txt
+uname -a >> ~/Labb_V2/system_info.txt
+```
+
+**Windows (PowerShell):**
+
+```powershell
+New-Item -ItemType Directory -Path "$env:USERPROFILE\Labb_V2" -Force
+New-Item -ItemType File -Path "$env:USERPROFILE\Labb_V2\system_info.txt" -Force
+hostname | Out-File -FilePath "$env:USERPROFILE\Labb_V2\system_info.txt"
+systeminfo | Out-File -FilePath "$env:USERPROFILE\Labb_V2\system_info.txt" -Append
+```
+
+### Tabell: Systemegenskaper
+
+| Objekt / Egenskap | Kommando som användes | Resultat / Observation |
+|---|---|---|
+| Hostname & OS-version | `hostname` / `uname -a` / `systeminfo` | `ubuntu-labb` — `Linux ubuntu-labb 6.8.0-41-generic #41-Ubuntu SMP x86_64 GNU/Linux` |
+| Katalogens absoluta sökväg | `pwd` / `cd` | `/home/erik/Labb_V2` |
+| Filens storlek & Skapad-datum | `ls -l` / `dir` | `-rw-r--r-- 1 erik erik 87 sep 8 09:15 system_info.txt` |
+
+### Filens innehåll (`system_info.txt`)
+
+```text
+ubuntu-labb
+Linux ubuntu-labb 6.8.0-41-generic #41-Ubuntu SMP PREEMPT_DYNAMIC x86_64 GNU/Linux
+```
