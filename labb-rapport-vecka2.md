@@ -66,3 +66,47 @@ Undersök din virtuella maskins nätverkskort och IP-konfiguration med hjälp av
                                           8.8.4.4
       NetBIOS over Tcpip. . . . . . . . : Enabled
 ```
+
+---
+
+## Moment 2: Anslutningstester & Nätverksfelsökning
+
+Verifiera nätverkskommunikationen i flera steg för att identifiera eventuella hinder på vägen.
+
+### Tabell: Anslutningstester
+
+| Teststeg | Kommando | Förväntat utfall | Faktiskt resultat |
+|---|---|---|---|
+| 1. Loopback-test | `ping 127.0.0.1` | Verifiera lokal TCP/IP-stack | Lyckad |
+| 2. Lokal Gateway | `ping 192.168.56.1` | Verifiera kontakt med router/gateway | Lyckad |
+| 3. Extern IP-adress | `ping 8.8.8.8` | Verifiera internetanslutning utan DNS | Lyckad |
+| 4. DNS-uppslagning | `nslookup systementor.se` | Verifiera att namnuppslag fungerar | `93.158.194.26` |
+
+### Kommandoutskrift 2: Routing och Tracing
+
+**Linux (`traceroute 8.8.8.8`):**
+
+```text
+traceroute to 8.8.8.8 (8.8.8.8), 30 hops max, 60 byte packets
+ 1  192.168.56.1 (192.168.56.1)  0.642 ms  0.589 ms  0.563 ms
+ 2  10.0.2.1 (10.0.2.1)  1.234 ms  1.198 ms  1.176 ms
+ 3  172.16.0.1 (172.16.0.1)  3.456 ms  3.401 ms  3.378 ms
+ 4  85.24.128.1 (85.24.128.1)  8.234 ms  8.198 ms  8.167 ms
+ 5  72.14.236.204 (72.14.236.204)  12.567 ms  12.523 ms  12.489 ms
+ 6  8.8.8.8 (8.8.8.8)  14.892 ms  14.856 ms  14.823 ms
+```
+
+**Windows (`tracert 8.8.8.8`):**
+
+```text
+Kör spårning till 8.8.8.8 med max 30 hopp.
+
+  1    <1 ms    <1 ms    <1 ms  192.168.56.1
+  2     1 ms     1 ms     1 ms  10.0.2.1
+  3     3 ms     3 ms     3 ms  172.16.0.1
+  4     8 ms     8 ms     8 ms  85.24.128.1
+  5    12 ms    12 ms    12 ms  72.14.236.204
+  6    14 ms    14 ms    14 ms  8.8.8.8
+
+Spårning klar.
+```
