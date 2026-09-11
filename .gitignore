@@ -1,0 +1,16 @@
+# Operativsystem
+.DS_Store
+Thumbs.db
+Desktop.ini
+
+# Redigerare / IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Tillfälliga filer
+*.tmp
+*.bak
+*.log
