@@ -194,3 +194,60 @@ För att återställa skrivrättigheterna:
 ```bash
 chmod 644 system_info.txt
 ```
+
+---
+
+## Moment 5: Reflektion & Dokumentationsanalys
+
+Besvara följande frågor kortfattat baserat på dina praktiska resultat.
+
+### 1. Felsökning
+
+> **Fråga:** Om `ping 8.8.8.8` fungerar men `ping google.com` misslyckas, vilket nätverksproblem tyder det på och hur åtgärdar du det?
+
+**Svar:** Att `ping 8.8.8.8` fungerar innebär att vi har full IP-nätverksanslutning — själva nätvägen ut mot internet fungerar. Att `ping google.com` däremot misslyckas tyder på ett **DNS-problem**, eftersom det enda som skiljer de två testerna åt är namnsuppslagningen. Systemet kan inte översätta `google.com` till en IP-adress.
+
+**Åtgärd:**
+1. Kontrollera DNS-konfigurationen (`cat /etc/resolv.conf` / `ipconfig /all`) — stämmer DNS-servrarna?
+2. Testa med `nslookup google.com` för att se felmeddelandet.
+3. Testa en annan DNS-server (t.ex. `ping 8.8.4.4` och ändra till `8.8.8.8`) för att isolera om problemet är den angivna DNS-servern.
+4. Kontrollera att `/etc/resolv.conf` pekar på rätt resolvers och att brandväggen inte blockerar UDP-port 53.
+
+### 2. Behörigheter
+
+> **Fråga:** Varför är det viktigt att tillämpa "Principle of Least Privilege" (minsta möjliga behörighet) när man sätter filrättigheter i ett operativsystem?
+
+**Svar:** Principle of Least Privilege innebär att varje användare eller process enbart ska få de rättigheter som krävs för sitt specifika arbete — och inte mer. Det är viktigt av flera skäl:
+
+- **Säkerhet:** Om en användare komprometteras (t.ex. via ett skadligt skript eller lösenordsstöld) begränsas skadan till de filer den användaren faktiskt får röra.
+- **Stabilitet:** En användare med onödigt höga rättigheter kan av misstag radera eller ändra systemkritiska filer.
+- **Granskbarhet:** Med minimala rättigheter blir det lättare att spåra vem som ändrat vad.
+- **Regelefterlevnad:** Många standarder (t.ex. ISO 27001, GDPR) kräver principen.
+
+### 3. Dokumentationsvärde
+
+> **Fråga:** Varför är det avgörande för en IT-organisation att alla tekniker dokumenterar sina nätverksändringar enligt en fastställd mall?
+
+**Svar:** Dokumentation enligt en fastställd mall ger flera avgörande fördelar:
+
+- **Reproducerbarhet:** Andra tekniker kan felsöka eller återskapa en miljö utan att behöva "gissa" vad som gjordes.
+- **Kontinuitet:** Om en tekniker slutar eller är frånvarande går kunskapen inte förlorad — dokumentationen överlever individen.
+- **Snabbare felsökning:** Vid driftstörning är en välskriven labbrapport/mall det första felsökningsverktyget. Utan dokumentation måste man börja om från noll.
+- **Standardisering och kvalitet:** En gemensam mall gör alla mer jämförbara och kvalitetssäkrar att alla viktiga steg (t.ex. IP-inställningar, brandväggsregler) fångas upp.
+- **Verifiering och revision:** Man kan i efterhand bevisa vad som förändrats och när, vilket är viktigt vid säkerhetsincidenter och revision.
+
+I kontrast: en IT-organisation utan dokumentation blir beroende av individers minne, vilket gör systemen sårbara, svåra att underhålla och i förlängningen dyra att driva.
+
+---
+
+## Sammanfattning
+
+I denna labb har jag:
+
+- Granskat och dokumenterat nätverkskonfigurationen (`ip a` / `ipconfig`).
+- Verifierat nätverksanslutning steg för steg (loopback → gateway → extern IP → DNS).
+- Skapat en katalogstruktur och en systeminformationsfil via kommandoraden.
+- Ändrat filbehörigheter och verifierat skrivskyddet med `chmod 444`.
+- Reflekterat över felsökning, behörighetsprinciper och värdet av dokumentation.
+
+**Verktyg som använts:** VirtualBox, Ubuntu/Linux CLI, Windows (PowerShell/CMD), Git.
