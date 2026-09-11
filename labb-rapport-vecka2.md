@@ -155,3 +155,42 @@ systeminfo | Out-File -FilePath "$env:USERPROFILE\Labb_V2\system_info.txt" -Appe
 ubuntu-labb
 Linux ubuntu-labb 6.8.0-41-generic #41-Ubuntu SMP PREEMPT_DYNAMIC x86_64 GNU/Linux
 ```
+
+---
+
+## Moment 4: Hantering av Behörigheter & Filrättigheter
+
+Undersök och ändra säkerhetsinställningar och filbehörigheter på den skapade filen.
+
+### Tabell: Behörigheter
+
+| Steg | Kommando | Observerat resultat / Felmeddelande |
+|---|---|---|
+| Ursprungliga behörigheter | `ls -l system_info.txt` | `-rw-r--r-- 1 erik erik 87 sep 8 09:15 system_info.txt` |
+| Kommando för förändring | `chmod 444 system_info.txt` | (kommandot lyckades utan utskrift) |
+| Verifiering efter ändring | `ls -l system_info.txt` | `-r--r--r-- 1 erik erik 87 sep 8 09:15 system_info.txt` |
+| Test av skrivskydd | `echo "test" >> system_info.txt` | `bash: system_info.txt: Permission denied` |
+
+**Windows (`attrib` + `icacls`):**
+
+```powershell
+# Visa behörigheter
+icacls "$env:USERPROFILE\Labb_V2\system_info.txt"
+
+# Sätt skrivskydd
+attrib +r "$env:USERPROFILE\Labb_V2\system_info.txt"
+
+# Testa att skriva
+"test" | Out-File -FilePath "$env:USERPROFILE\Labb_V2\system_info.txt" -Append
+# Felmeddelande: Out-File : Access to the path is denied.
+```
+
+### Observation
+
+Efter `chmod 444` ändrades filens behörighetssträng från `-rw-r--r--` till `-r--r--r--`. Detta betyder att alla (ägare, grupp och övriga) endast har läsrättighet. Försök att skriva till filen resulterade i `Permission denied`, vilket bekräftar att skrivskyddet fungerar korrekt.
+
+För att återställa skrivrättigheterna:
+
+```bash
+chmod 644 system_info.txt
+```
