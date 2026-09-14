@@ -77,10 +77,12 @@ Verifiera nätverkskommunikationen i flera steg för att identifiera eventuella 
 
 | Teststeg | Kommando | Förväntat utfall | Faktiskt resultat |
 |---|---|---|---|
-| 1. Loopback-test | `ping 127.0.0.1` | Verifiera lokal TCP/IP-stack | Lyckad |
+| 1. Loopback-test | `ping 127.0.0.1` | Verifiera lokal TCP/IP-stack | Misslyckad |
 | 2. Lokal Gateway | `ping 192.168.56.1` | Verifiera kontakt med router/gateway | Lyckad |
 | 3. Extern IP-adress | `ping 8.8.8.8` | Verifiera internetanslutning utan DNS | Lyckad |
 | 4. DNS-uppslagning | `nslookup systementor.se` | Verifiera att namnuppslag fungerar | `93.158.194.26` |
+
+den misslyckades för att bla bla bla
 
 ### Kommandoutskrift 2: Routing och Tracing
 
